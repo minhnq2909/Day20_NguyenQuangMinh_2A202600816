@@ -1,4 +1,6 @@
-# StudyNight AI - Day 20 Retention Lab
+# Day20_NguyenQuangMinh_2A202600816
+
+## StudyNight AI - Day 20 Retention Lab
 
 Prototype tiếp tục từ Day 18 cho sản phẩm **StudyNight AI**: AI Personal
 Assistant giúp sinh viên lập kế hoạch học tối nay.
