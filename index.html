@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyNight AI - Day 20 Retention Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Day 20 - Retention, Engagement & Habit Loop</p>
+        <h1>StudyNight AI</h1>
+        <p class="subtitle">
+          Tiếp tục prototype Ngày 18: tối ưu onboarding để sinh viên nhanh chóng
+          tạo, hiểu và xác nhận kế hoạch học tối nay.
+        </p>
+      </div>
+      <a class="submit-link" href="#prototype">Demo path</a>
+    </header>
+
+    <main>
+      <section class="band" id="current">
+        <div class="section-heading">
+          <p class="eyebrow">00 - Prototype Ngày 18 / Current State</p>
+          <h2>Flow hiện tại</h2>
+        </div>
+        <div class="flow-map">
+          <div class="flow-step">Onboarding dài + xin nhiều quyền</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">Nhập thời gian, năng lượng, mục tiêu</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">AI tạo kế hoạch nháp</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">Xem bằng chứng</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">Chỉnh sửa / xác nhận</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step recovery">Recovery khi AI ưu tiên sai</div>
+        </div>
+        <div class="metric-grid">
+          <article class="panel">
+            <h3>Friction chính</h3>
+            <p>
+              Onboarding hỏi quyền Email quá sớm, người dùng phải đọc nhiều
+              guardrail trước khi thấy giá trị thật.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>First core action cũ</h3>
+            <p>
+              Tạo kế hoạch nháp sau khi nhập bối cảnh. Time to First Core Action
+              ước tính: 75-90 giây.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>Hướng sửa</h3>
+            <p>
+              Chỉ hỏi minimum setup, tạo draft sớm, sau đó mới xin quyền ghi
+              Calendar khi user đã thấy evidence of value.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band alt" id="prototype">
+        <div class="section-heading">
+          <p class="eyebrow">05 - Redesigned Onboarding -> First Core Action</p>
+          <h2>Prototype Day 20</h2>
+        </div>
+
+        <nav class="tabs" aria-label="Prototype screens">
+          <button class="tab active" data-screen="onboarding">01 Start</button>
+          <button class="tab" data-screen="context">02 Minimum setup</button>
+          <button class="tab" data-screen="draft">03 First core action</button>
+          <button class="tab" data-screen="evidence">04 Evidence</button>
+          <button class="tab" data-screen="edit">05 Confirm</button>
+          <button class="tab" data-screen="recovery">06 Recovery</button>
+        </nav>
+
+        <div class="phone-shell">
+          <section class="screen active" id="screen-onboarding">
+            <div class="app-header">
+              <div>
+                <p class="tiny">Entry point</p>
+                <h3>Lập plan học tối nay trong 1 phút</h3>
+              </div>
+              <span class="badge ask">Ask</span>
+            </div>
+            <div class="message ai">
+              Mình sẽ tạo một bản nháp kế hoạch học tối nay từ deadline gần nhất
+              và thời gian rảnh. Bạn có thể sửa trước khi thêm vào Calendar.
+            </div>
+            <div class="value-preview">
+              <strong>Kết quả bạn sẽ nhận:</strong>
+              <span>3 block học vừa sức</span>
+              <span>Lý do ưu tiên từng môn</span>
+              <span>Checklist trước khi nghỉ</span>
+            </div>
+            <div class="guardrail">
+              Minimum setup: chỉ dùng LMS và Calendar tối nay. Email sẽ hỏi sau
+              nếu thật sự cần.
+            </div>
+            <button class="primary next" data-next="context">Tạo plan tối nay</button>
+          </section>
+
+          <section class="screen" id="screen-context">
+            <div class="app-header">
+              <div>
+                <p class="tiny">Minimum setup</p>
+                <h3>Chỉ cần 2 thông tin</h3>
+              </div>
+              <span class="badge ask">Ask</span>
+            </div>
+            <div class="form-grid">
+              <label>
+                Thời gian rảnh
+                <select id="timeRange">
+                  <option>19:00 - 23:00</option>
+                  <option>20:00 - 22:30</option>
+                  <option>18:30 - 21:30</option>
+                </select>
+              </label>
+              <label>
+                Năng lượng hiện tại
+                <select id="energy">
+                  <option value="medium">Vừa - làm được việc chính</option>
+                  <option value="low">Thấp - cần plan nhẹ</option>
+                  <option value="high">Cao - có thể xử lý bài khó</option>
+                </select>
+              </label>
+            </div>
+            <div class="system-note">
+              Delay: quyền ghi Calendar, Email trường và các câu hỏi phụ được
+              chuyển ra sau first core action.
+            </div>
+            <button class="primary next" data-next="draft">Tạo kế hoạch nháp</button>
+          </section>
+
+          <section class="screen" id="screen-draft">
+            <div class="app-header">
+              <div>
+                <p class="tiny">First core action</p>
+                <h3>Kế hoạch nháp tối nay</h3>
+              </div>
+              <span class="badge act">Act</span>
+            </div>
+            <div class="status-row">
+              <span class="spinner"></span>
+              Draft được tạo từ deadline LMS và lịch rảnh tối nay.
+            </div>
+            <ol class="plan-list" id="planList">
+              <li><span>19:00 - 19:30</span> Ôn Linear Algebra quiz vì diễn ra sáng mai.</li>
+              <li><span>19:30 - 19:40</span> Nghỉ ngắn để giảm mệt.</li>
+              <li><span>19:40 - 20:55</span> Làm phần quan trọng nhất của CS assignment.</li>
+              <li><span>20:55 - 21:10</span> Checklist câu hỏi còn vướng trước khi nghỉ.</li>
+            </ol>
+            <div class="aha-box">
+              Aha moment: user thấy ngay một plan khả thi, có thứ tự ưu tiên và
+              không bị nhồi quá nhiều việc.
+            </div>
+            <div class="inline-actions">
+              <button class="secondary next" data-next="evidence">Xem vì sao</button>
+              <button class="secondary" id="lighterPlan">Giảm tải 25%</button>
+              <button class="secondary next" data-next="edit">Xác nhận</button>
+            </div>
+          </section>
+
+          <section class="screen" id="screen-evidence">
+            <div class="app-header">
+              <div>
+                <p class="tiny">Evidence of value</p>
+                <h3>Nguồn và giả định</h3>
+              </div>
+              <span class="badge dont">Don't Act</span>
+            </div>
+            <div class="evidence-list">
+              <article>
+                <strong>Linear Algebra quiz</strong>
+                <p>Nguồn: Calendar. Thời gian: ngày mai 09:00. Độ tin cậy cao.</p>
+              </article>
+              <article>
+                <strong>CS assignment</strong>
+                <p>Nguồn: LMS. Due: ngày mai 23:59. Ưu tiên phần có điểm cao.</p>
+              </article>
+              <article>
+                <strong>AI Ethics reading</strong>
+                <p>Nguồn: syllabus cũ. Độ tin cậy thấp nên không đưa vào plan chính.</p>
+              </article>
+            </div>
+            <button class="primary next" data-next="edit">Tiếp tục xác nhận</button>
+          </section>
+
+          <section class="screen" id="screen-edit">
+            <div class="app-header">
+              <div>
+                <p class="tiny">Activation</p>
+                <h3>Thêm vào Calendar?</h3>
+              </div>
+              <span class="badge ask">Ask</span>
+            </div>
+            <div class="confirm-box">
+              <strong>Xin xác nhận trước khi hành động</strong>
+              <p>Thêm 4 block học này vào Calendar tối nay?</p>
+              <button class="primary">Xác nhận thêm vào Calendar</button>
+              <button class="text-button">Không, chỉ lưu nháp</button>
+            </div>
+            <div class="metric-callout">
+              Activation được tính khi user tạo plan nháp và thực hiện ít nhất
+              một hành động review, edit hoặc confirm trong cùng phiên.
+            </div>
+            <button class="secondary next" data-next="recovery">Xem recovery path</button>
+          </section>
+
+          <section class="screen" id="screen-recovery">
+            <div class="app-header">
+              <div>
+                <p class="tiny">Recovery path</p>
+                <h3>Khi AI ưu tiên sai</h3>
+              </div>
+              <span class="badge dont">Don't Act</span>
+            </div>
+            <div class="message user">
+              Deadline AI Ethics không phải tối nay. Mình chỉ cần làm CS và ôn quiz.
+            </div>
+            <div class="message ai">
+              Mình đã bỏ nguồn syllabus cũ khỏi plan tối nay, giữ lại quiz và CS.
+              Lần sau mình sẽ hỏi lại trước khi dùng nguồn có độ tin cậy thấp.
+            </div>
+            <ol class="plan-list compact">
+              <li><span>19:00 - 19:35</span> Ôn Linear Algebra quiz</li>
+              <li><span>19:35 - 19:45</span> Nghỉ</li>
+              <li><span>19:45 - 21:15</span> Làm CS assignment</li>
+              <li><span>21:15 - 21:30</span> Checklist nộp bài</li>
+            </ol>
+            <div class="inline-actions">
+              <button class="primary">Dùng kế hoạch đã sửa</button>
+              <button class="secondary">Hoàn tác về bản trước</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="band" id="canvas">
+        <div class="section-heading">
+          <p class="eyebrow">01 - Customer Retention Canvas</p>
+          <h2>Use case chính</h2>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Thành phần</th><th>Câu trả lời của nhóm</th></tr>
+            <tr><td>The Problem</td><td>"Tối nay tôi không biết nên học môn nào trước, sợ bỏ lỡ deadline và lập kế hoạch quá sức."</td></tr>
+            <tr><td>The Persona</td><td>Sinh viên đại học năm 1-3, có nhiều môn cùng lúc, thường học buổi tối sau giờ học chính.</td></tr>
+            <tr><td>Anti-persona</td><td>Người đã có lịch học cố định, ít deadline, hoặc không dùng LMS/Calendar để quản lý việc học.</td></tr>
+            <tr><td>The Why</td><td>Muốn giảm lo lắng, biết việc quan trọng nhất tối nay và bắt đầu học nhanh thay vì mất thời gian tự sắp xếp.</td></tr>
+            <tr><td>The Alternative</td><td>Tự mở LMS, Calendar, note, chat với bạn, rồi ước lượng thủ công trên giấy hoặc Notion.</td></tr>
+            <tr><td>The Frequency</td><td>Daily trong các tuần có deadline; weekly ở tuần bình thường. Use case chính chọn nhịp daily buổi tối.</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="band alt" id="metric">
+        <div class="section-heading">
+          <p class="eyebrow">02-03 - Core Action, Active User & Retention</p>
+          <h2>Metric đi từ hành vi thật</h2>
+        </div>
+        <div class="metric-grid">
+          <article class="panel">
+            <h3>Core job</h3>
+            <p>Tạo một kế hoạch học tối nay khả thi dựa trên deadline, thời gian rảnh và năng lượng.</p>
+          </article>
+          <article class="panel">
+            <h3>Core action</h3>
+            <p>User tạo study plan nháp và review ít nhất một lý do ưu tiên hoặc chỉnh một block học.</p>
+          </article>
+          <article class="panel">
+            <h3>Active user</h3>
+            <p>Một user được tính active daily khi hoàn thành core action ít nhất 1 lần trong ngày học.</p>
+          </article>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Thành phần</th><th>Câu trả lời</th></tr>
+            <tr><td>Persona và use case</td><td>Sinh viên nhiều deadline cần plan học tối nay.</td></tr>
+            <tr><td>Natural frequency</td><td>Daily vào buổi tối trong giai đoạn học/deadline.</td></tr>
+            <tr><td>Retention metric</td><td>D7 Core Action Retention: % user quay lại trong 7 ngày và hoàn thành core action.</td></tr>
+            <tr><td>Vì sao phù hợp</td><td>Use case có nhịp daily nhưng không nhất thiết ngày nào cũng dùng; D7 phản ánh việc quay lại khi tiếp tục có buổi học.</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="band" id="audit">
+        <div class="section-heading">
+          <p class="eyebrow">04 & 06 - Onboarding Audit / Before After</p>
+          <h2>Friction audit</h2>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Bước cũ</th><th>Nhãn</th><th>Thay đổi Day 20</th></tr>
+            <tr><td>Giới thiệu dài về quyền và guardrail</td><td>Simplify</td><td>Rút còn value proposition + minimum setup.</td></tr>
+            <tr><td>Hỏi Email trường ngay từ đầu</td><td>Delay</td><td>Chỉ hỏi nếu nguồn LMS/Calendar thiếu dữ liệu.</td></tr>
+            <tr><td>Nhập mục tiêu chi tiết trước draft</td><td>Remove</td><td>Dùng default "làm việc quan trọng nhất tối nay".</td></tr>
+            <tr><td>Tạo kế hoạch nháp</td><td>Keep</td><td>Đưa thành first core action và hiển thị lý do ưu tiên.</td></tr>
+            <tr><td>Recovery khi nguồn sai</td><td>Keep</td><td>Giữ, nhưng đưa user quay lại plan đã sửa thay vì chỉ báo lỗi.</td></tr>
+          </table>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Tiêu chí</th><th>Before</th><th>After</th><th>Vì sao thay đổi?</th></tr>
+            <tr><td>Số bước tới core action</td><td>3</td><td>2</td><td>Giảm câu hỏi trước khi thấy value.</td></tr>
+            <tr><td>Số trường phải nhập</td><td>3</td><td>2</td><td>Chỉ giữ thời gian rảnh và năng lượng.</td></tr>
+            <tr><td>Permission trước core action</td><td>LMS, Calendar, Email</td><td>LMS, Calendar</td><td>Email bị delay vì chưa cần.</td></tr>
+            <tr><td>Time to First Core Action</td><td>75-90s</td><td>35-45s</td><td>Draft xuất hiện nhanh hơn.</td></tr>
+            <tr><td>Time to Value</td><td>120s</td><td>50-60s</td><td>Value preview + plan có lý do ưu tiên.</td></tr>
+            <tr><td>Recovery path</td><td>Có</td><td>Cải thiện</td><td>Sửa plan và ghi nhớ nguồn thấp tin cậy.</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="band alt" id="north-star">
+        <div class="section-heading">
+          <p class="eyebrow">07-08 - Measurement Ladder & North Star</p>
+          <h2>Hệ metric</h2>
+        </div>
+        <div class="flow-map ladder">
+          <div class="flow-step">Visitor: mở StudyNight AI</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">Activation: tạo plan + review/edit</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">Core Action: hoàn thành plan có lý do ưu tiên</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">Retention: quay lại tạo plan trong 7 ngày</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-step">Outcome: học đúng việc, ít trễ deadline</div>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Loại</th><th>Metric</th><th>Indicator</th></tr>
+            <tr><td>North Star Metric</td><td>Weekly successful study plans: số plan được tạo và có ít nhất một block được user xác nhận/hoàn thành trong tuần.</td><td>Leading cho retention, lagging cho activation.</td></tr>
+            <tr><td>Input 1</td><td>Plan draft completion rate</td><td>Leading</td></tr>
+            <tr><td>Input 2</td><td>Evidence review or edit rate</td><td>Leading</td></tr>
+            <tr><td>Input 3</td><td>D7 Core Action Retention</td><td>Lagging</td></tr>
+            <tr><td>Trade-off</td><td>Giảm số bước quá mạnh có thể làm plan kém chính xác; cần theo dõi edit/recovery rate.</td><td>Risk metric</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="band" id="habit">
+        <div class="section-heading">
+          <p class="eyebrow">09-10 - Nature vs Nurture & Hook Review</p>
+          <h2>Habit loop hợp nhịp thật</h2>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Nội dung</th><th>Câu trả lời</th></tr>
+            <tr><td>Natural frequency</td><td>Daily buổi tối khi có việc học; tăng mạnh trước deadline.</td></tr>
+            <tr><td>Internal trigger</td><td>Lo lắng vì nhiều deadline và không biết bắt đầu từ đâu.</td></tr>
+            <tr><td>External trigger</td><td>Nhắc nhẹ lúc 18:30 nếu ngày mai có deadline/quiz và user còn trống lịch tối.</td></tr>
+            <tr><td>Nurture phù hợp</td><td>Reminder tối đa 1 lần/ngày, chỉ khi có tín hiệu cần học; không gửi nếu user đã tạo plan.</td></tr>
+            <tr><td>Metric theo dõi</td><td>Reminder-to-plan conversion và opt-out rate.</td></tr>
+          </table>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Hook component</th><th>StudyNight AI</th></tr>
+            <tr><td>Why Habit?</td><td>Giúp user biến việc lập plan học tối thành thói quen trước khi bắt đầu học.</td></tr>
+            <tr><td>Trigger</td><td>"Tối nay có 2 deadline gần, lập plan 1 phút không?"</td></tr>
+            <tr><td>Action</td><td>Bấm tạo plan, chọn năng lượng, review draft.</td></tr>
+            <tr><td>Variable Reward</td><td>The Self: cảm giác làm chủ buổi tối; The Hunt: tìm thứ tự ưu tiên rõ ràng.</td></tr>
+            <tr><td>Investment</td><td>User chỉnh plan, xác nhận môn ưu tiên, lưu preference về độ nặng của buổi học.</td></tr>
+            <tr><td>Next Trigger</td><td>Preference giúp reminder sau cá nhân hóa hơn: nhẹ hơn khi user từng giảm tải.</td></tr>
+            <tr><td>User Impact</td><td>Có lợi nếu giảm lo lắng và không ép học hằng ngày khi frequency không phù hợp.</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="band alt" id="tracking">
+        <div class="section-heading">
+          <p class="eyebrow">11 - Metric Tracking Requirement</p>
+          <h2>Tracking cần có</h2>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Metric</th><th>Định nghĩa</th><th>Công thức / window</th><th>Event cần có</th></tr>
+            <tr><td>Plan draft completion rate</td><td>User hoàn thành minimum setup và nhận draft.</td><td>plan_draft_created / onboarding_started theo ngày</td><td>onboarding_started, plan_draft_created</td></tr>
+            <tr><td>Evidence review or edit rate</td><td>User xem lý do hoặc chỉnh draft sau khi draft xuất hiện.</td><td>users có evidence_opened hoặc plan_edited / users có plan_draft_created</td><td>evidence_opened, plan_edited</td></tr>
+            <tr><td>D7 Core Action Retention</td><td>User quay lại hoàn thành core action trong vòng 7 ngày.</td><td>cohort users core_action_completed ngày D0 quay lại D1-D7</td><td>core_action_completed</td></tr>
+            <tr><td>Weekly successful study plans</td><td>Plan được user xác nhận hoặc có ít nhất một block hoàn thành trong tuần.</td><td>count distinct plan_id weekly</td><td>calendar_confirmed, study_block_completed</td></tr>
+          </table>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Event</th><th>Khi nào ghi?</th><th>Identity</th><th>Properties</th><th>Tránh ghi trùng</th></tr>
+            <tr><td>onboarding_started</td><td>User mở flow tạo plan.</td><td>user_id</td><td>entry_point, has_deadline_tomorrow</td><td>1 lần/session_id</td></tr>
+            <tr><td>plan_draft_created</td><td>Draft được render thành công.</td><td>user_id, plan_id</td><td>time_range, energy_level, source_count</td><td>idempotency_key theo plan_id</td></tr>
+            <tr><td>evidence_opened</td><td>User mở màn nguồn/lý do.</td><td>user_id, plan_id</td><td>source_type, low_confidence_count</td><td>1 lần/source_id/session</td></tr>
+            <tr><td>plan_edited</td><td>User đổi thứ tự, giảm tải hoặc bỏ task.</td><td>user_id, plan_id</td><td>edit_type, blocks_before, blocks_after</td><td>ghi theo edit_id</td></tr>
+            <tr><td>core_action_completed</td><td>User tạo draft và review/edit ít nhất một lần.</td><td>user_id, plan_id</td><td>core_action_type, elapsed_seconds</td><td>1 lần/plan_id</td></tr>
+            <tr><td>calendar_confirmed</td><td>User xác nhận thêm plan vào Calendar.</td><td>user_id, plan_id</td><td>block_count, calendar_provider</td><td>calendar_write_id duy nhất</td></tr>
+          </table>
+        </div>
+        <div class="acceptance">
+          <h3>Tiêu chí nghiệm thu tracking</h3>
+          <ol>
+            <li>Event chỉ được ghi khi hành vi thật sự xảy ra, không ghi khi chỉ load màn hình chưa thành công.</li>
+            <li>Refresh, retry hoặc autosave không tạo thêm event trùng cho cùng plan_id.</li>
+            <li>Mọi event có user_id, plan_id khi liên quan tới plan, timestamp và timezone nhất quán.</li>
+            <li>Properties đủ để tính metric và phân tích segment theo energy_level, source_count, entry_point.</li>
+            <li>Không thu thập nội dung deadline/email thô nếu không cần cho công thức metric.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="band" id="demo">
+        <div class="section-heading">
+          <p class="eyebrow">12 - Demo Path</p>
+          <h2>Kịch bản 8 phút</h2>
+        </div>
+        <div class="table-card">
+          <table>
+            <tr><th>Thời gian</th><th>Nội dung demo</th></tr>
+            <tr><td>0:00-1:00</td><td>Problem, persona, why, alternative.</td></tr>
+            <tr><td>1:00-1:50</td><td>Frequency, core action, active user.</td></tr>
+            <tr><td>1:50-2:40</td><td>Retention metric và lý do chọn D7 Core Action Retention.</td></tr>
+            <tr><td>2:40-4:20</td><td>Current flow, redesigned onboarding, first core action, TTV.</td></tr>
+            <tr><td>4:20-5:15</td><td>North Star, input metrics, leading/lagging.</td></tr>
+            <tr><td>5:15-6:20</td><td>Nature vs Nurture và Hook Model.</td></tr>
+            <tr><td>6:20-7:15</td><td>Tracking requirement.</td></tr>
+            <tr><td>7:15-8:00</td><td>Before/After và thay đổi quan trọng nhất.</td></tr>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
