@@ -289,27 +289,35 @@ h3 {
 .form-grid,
 .evidence-list,
 .choice-card,
-.confirm-box {
+.confirm-box,
+.customize-panel {
   display: grid;
   gap: 12px;
   margin-bottom: 16px;
 }
 
 .permission-list label,
-.form-grid label {
+.form-grid label,
+.custom-note {
   display: grid;
   gap: 8px;
   color: var(--muted);
   font-weight: 700;
 }
 
-select {
+select,
+input {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 11px;
   background: #fff;
   color: var(--ink);
+}
+
+.form-grid.compact {
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 0;
 }
 
 .guardrail,
@@ -430,6 +438,22 @@ select {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 14px;
+}
+
+.customize-panel {
+  margin-top: 14px;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.customize-panel[hidden] {
+  display: none;
+}
+
+.customize-panel h4 {
+  margin: 0;
 }
 
 .choice-card p,
@@ -570,6 +594,10 @@ td:last-child {
   }
 
   .matrix {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid.compact {
     grid-template-columns: 1fr;
   }
 

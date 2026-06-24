@@ -162,7 +162,34 @@
             <div class="inline-actions">
               <button class="secondary next" data-next="evidence">Xem vì sao</button>
               <button class="secondary" id="lighterPlan">Giảm tải 25%</button>
+              <button class="secondary" id="customizePlan">Tự tùy chỉnh</button>
               <button class="secondary next" data-next="edit">Xác nhận</button>
+            </div>
+            <div class="customize-panel" id="customizePanel" hidden>
+              <h4>Tùy chỉnh kế hoạch</h4>
+              <div class="form-grid compact">
+                <label>
+                  Ưu tiên môn
+                  <select id="prioritySubject">
+                    <option value="balanced">Cân bằng quiz và assignment</option>
+                    <option value="cs">Ưu tiên CS assignment</option>
+                    <option value="math">Ưu tiên Linear Algebra quiz</option>
+                  </select>
+                </label>
+                <label>
+                  Độ nặng
+                  <select id="planIntensity">
+                    <option value="normal">Vừa sức</option>
+                    <option value="light">Nhẹ hơn</option>
+                    <option value="deep">Tập trung sâu</option>
+                  </select>
+                </label>
+              </div>
+              <label class="custom-note">
+                Ghi chú của bạn
+                <input id="customNote" type="text" value="Mình muốn nghỉ trước 21:30" />
+              </label>
+              <button class="primary" id="applyCustomPlan">Áp dụng tùy chỉnh</button>
             </div>
           </section>
 
